@@ -9,7 +9,7 @@ import {
   Package,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { MonthData, calculateGrowthRate, monthlyData } from "@/utils/mockData";
+import { MonthData, calculateGrowthRate, monthlyData, months } from "@/utils/mockData";
 
 type StatCardProps = {
   title: string;
