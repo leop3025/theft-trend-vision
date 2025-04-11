@@ -1,60 +1,104 @@
 
 import React from "react";
-import { Home, BarChart2, Map, Clock, Calendar, AlertTriangle, Settings } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-type SidebarItemProps = {
-  icon: React.ElementType;
-  label: string;
-  active?: boolean;
-  onClick?: () => void;
-};
-
-const SidebarItem = ({ icon: Icon, label, active, onClick }: SidebarItemProps) => {
-  return (
-    <div
-      className={cn(
-        "flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-colors",
-        active
-          ? "bg-primary-purple text-white"
-          : "text-gray-400 hover:bg-secondary/50 hover:text-white"
-      )}
-      onClick={onClick}
-    >
-      <Icon size={20} />
-      <span>{label}</span>
-    </div>
-  );
-};
+import { Link, useLocation } from "react-router-dom";
+import { 
+  AlertTriangle, 
+  BarChart3, 
+  Bell, 
+  Calendar, 
+  ChevronLeft, 
+  ChevronRight, 
+  Clock, 
+  Cog, 
+  Home, 
+  LogOut, 
+  PackageSearch, 
+  PieChart, 
+  ShoppingCart, 
+  Users 
+} from "lucide-react";
+import useMobile from "@/hooks/use-mobile";
 
 export const Sidebar = () => {
+  const isMobile = useMobile();
+  const [collapsed, setCollapsed] = React.useState(isMobile);
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (isMobile) {
+      setCollapsed(true);
+    }
+  }, [isMobile]);
+
+  const menuItems = [
+    { name: "Dashboard", icon: Home, path: "/" },
+    { name: "Incidents", icon: AlertTriangle, path: "/incidents" },
+    { name: "Analytics", icon: BarChart3, path: "/analytics" },
+    { name: "Inventory", icon: PackageSearch, path: "/inventory-forecasting" },
+    { name: "Calendar", icon: Calendar, path: "/calendar" },
+    { name: "Time Analysis", icon: Clock, path: "/time-analysis" },
+    { name: "Performance", icon: PieChart, path: "/performance" },
+    { name: "Users", icon: Users, path: "/users" },
+    { name: "Notifications", icon: Bell, path: "/notifications" },
+    { name: "Settings", icon: Cog, path: "/settings" },
+  ];
+
   return (
-    <div className="w-64 h-screen bg-dark border-r border-border flex flex-col">
-      <div className="p-6">
-        <h1 className="text-xl font-bold text-white flex items-center">
-          <AlertTriangle size={20} className="mr-2 text-primary-purple" />
-          TheftVision
-        </h1>
+    <aside
+      className={`bg-sidebar-background text-sidebar-foreground h-screen transition-all duration-300 relative ${
+        collapsed ? "w-16" : "w-56"
+      }`}
+    >
+      <div className="flex items-center justify-between p-4 h-16">
+        {!collapsed && (
+          <span className="font-bold text-lg text-sidebar-primary-foreground">
+            TheftVision
+          </span>
+        )}
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="p-1 rounded-md hover:bg-sidebar-accent text-sidebar-accent-foreground absolute -right-3 top-7 bg-sidebar-background border border-sidebar-border"
+        >
+          {collapsed ? (
+            <ChevronRight className="h-4 w-4" />
+          ) : (
+            <ChevronLeft className="h-4 w-4" />
+          )}
+        </button>
       </div>
-      <div className="flex-1 px-3 py-4 space-y-1">
-        <SidebarItem icon={Home} label="Dashboard" active />
-        <SidebarItem icon={BarChart2} label="Analytics" />
-        <SidebarItem icon={Map} label="Store Map" />
-        <SidebarItem icon={Clock} label="Time Analysis" />
-        <SidebarItem icon={Calendar} label="Scheduling" />
-        <SidebarItem icon={Settings} label="Settings" />
+
+      <div className="px-2 py-4">
+        <nav>
+          <ul className="space-y-1">
+            {menuItems.map((item) => (
+              <li key={item.name}>
+                <Link
+                  to={item.path}
+                  className={`flex items-center px-3 py-2 rounded-md transition-colors ${
+                    location.pathname === item.path
+                      ? "bg-sidebar-primary/20 text-sidebar-primary"
+                      : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                  } ${collapsed ? "justify-center" : "justify-start"}`}
+                >
+                  <item.icon className="h-5 w-5" />
+                  {!collapsed && <span className="ml-3">{item.name}</span>}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
-      <div className="p-4 border-t border-border">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-primary-purple flex items-center justify-center text-white font-semibold">
-            SM
-          </div>
-          <div>
-            <p className="text-sm font-medium text-white">Store Manager</p>
-            <p className="text-xs text-gray-400">Premium Plan</p>
-          </div>
-        </div>
+
+      <div className="absolute bottom-4 left-0 right-0 px-3">
+        <button
+          className={`flex items-center rounded-md py-2 px-3 w-full transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground ${
+            collapsed ? "justify-center" : "justify-start"
+          }`}
+        >
+          <LogOut className="h-5 w-5" />
+          {!collapsed && <span className="ml-3">Logout</span>}
+        </button>
       </div>
-    </div>
+    </aside>
   );
 };
