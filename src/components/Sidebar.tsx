@@ -17,10 +17,10 @@ import {
   ShoppingCart, 
   Users 
 } from "lucide-react";
-import useMobile from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export const Sidebar = () => {
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
   const [collapsed, setCollapsed] = React.useState(isMobile);
   const location = useLocation();
 
