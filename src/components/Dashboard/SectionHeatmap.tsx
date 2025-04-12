@@ -41,9 +41,25 @@ const HeatmapCell = ({
 };
 
 export const SectionHeatmap: React.FC<SectionHeatmapProps> = ({ selectedMonth1 }) => {
-  const data = monthlyData[selectedMonth1];
+  // Use a default month if the selected month data is not available
+  const data = monthlyData[selectedMonth1] || monthlyData["April"];
 
-  if (!data) return null;
+  // Ensure we have data to display
+  if (!data) {
+    console.error(`No data available for month: ${selectedMonth1}`);
+    return (
+      <Card className="bg-card border-border">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg font-medium">Store Section Analysis</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="p-4 text-center text-muted-foreground">
+            No data available for the selected month.
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   const maxValue = getMaxValue(data.sectionStats);
   const sections = Object.entries(data.sectionStats);
