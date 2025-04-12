@@ -4,7 +4,7 @@ import {
   AlertTriangle,
   TrendingUp,
   TrendingDown,
-  DollarSign,
+  IndianRupee,
   Calendar,
   Package,
 } from "lucide-react";
@@ -100,9 +100,9 @@ export const StatCards: React.FC<StatCardsProps> = ({ selectedMonth1, selectedMo
       />
       <StatCard
         title="Total Value Lost"
-        value={`$${currentData.totalValue.toLocaleString()}`}
+        value={`₹${currentData.totalValue.toLocaleString()}`}
         change={valueChange}
-        icon={<DollarSign size={20} />}
+        icon={<IndianRupee size={20} />}
         positive={false}
       />
       <StatCard

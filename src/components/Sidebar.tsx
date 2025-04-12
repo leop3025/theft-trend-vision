@@ -31,15 +31,8 @@ export const Sidebar = () => {
   }, [isMobile]);
 
   const menuItems = [
-    { name: "Dashboard", icon: Home, path: "/" },
-    { name: "Incidents", icon: AlertTriangle, path: "/incidents" },
-    { name: "Analytics", icon: BarChart3, path: "/analytics" },
+    { name: "Shoplifting Predictive Analysis", icon: Home, path: "/" },
     { name: "Inventory", icon: PackageSearch, path: "/inventory-forecasting" },
-    { name: "Calendar", icon: Calendar, path: "/calendar" },
-    { name: "Time Analysis", icon: Clock, path: "/time-analysis" },
-    { name: "Performance", icon: PieChart, path: "/performance" },
-    { name: "Users", icon: Users, path: "/users" },
-    { name: "Notifications", icon: Bell, path: "/notifications" },
     { name: "Settings", icon: Cog, path: "/settings" },
   ];
 
@@ -52,7 +45,7 @@ export const Sidebar = () => {
       <div className="flex items-center justify-between p-4 h-16">
         {!collapsed && (
           <span className="font-bold text-lg text-sidebar-primary-foreground">
-            TheftVision
+            BillianceAI
           </span>
         )}
         <button

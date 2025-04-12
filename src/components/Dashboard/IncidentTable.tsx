@@ -46,7 +46,7 @@ export const IncidentTable: React.FC<IncidentTableProps> = ({ selectedMonth1 }) 
                 <TableCell className="font-medium">{incident.date}</TableCell>
                 <TableCell>{incident.time}</TableCell>
                 <TableCell>{incident.section}</TableCell>
-                <TableCell>${incident.itemValue}</TableCell>
+                <TableCell>₹{incident.itemValue}</TableCell>
                 <TableCell>
                   {incident.recovered ? (
                     <Badge className="bg-green-500/20 text-green-400 hover:bg-green-500/30 border-green-500/30">

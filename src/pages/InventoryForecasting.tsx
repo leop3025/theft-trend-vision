@@ -175,7 +175,7 @@ const InventoryForecasting: React.FC = () => {
                       <div>
                         <p className="text-sm text-muted-foreground mb-1">Restock Value</p>
                         <h3 className="text-2xl font-bold text-white">
-                          ${restockingSuggestions.reduce(
+                        ₹{restockingSuggestions.reduce(
                             (acc, item) => acc + ((item.minStockLevel - item.currentStock) * 20), 0
                           ).toLocaleString()}
                         </h3>

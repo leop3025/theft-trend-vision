@@ -11,7 +11,7 @@ export const Header: React.FC<HeaderProps> = ({ selectedMonth1, selectedMonth2 }
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 space-y-4 md:space-y-0">
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-white">Shoplifting Predictive Analysis</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-white">Dashboard</h1>
         <p className="text-muted-foreground mt-1">
           Comparing {selectedMonth1} {selectedMonth2 ? `and ${selectedMonth2}` : ""}
         </p>
