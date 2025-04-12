@@ -17,12 +17,46 @@ type IncidentTableProps = {
 };
 
 export const IncidentTable: React.FC<IncidentTableProps> = ({ selectedMonth1 }) => {
-  const data = monthlyData[selectedMonth1];
+  // Use a default month if the selected month data is not available
+  const data = monthlyData[selectedMonth1] || monthlyData["April"];
 
-  if (!data) return null;
+  // Add console log to debug data issues
+  console.log("IncidentTable data for month:", selectedMonth1, data);
 
-  // Get only the first 6 incidents for display
-  const incidents = data.incidents.slice(0, 6);
+  // Ensure we have data to display
+  if (!data) {
+    console.error(`No data available for month: ${selectedMonth1}`);
+    return (
+      <Card className="bg-card border-border">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg font-medium">Recent Incidents</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="p-4 text-center text-muted-foreground">
+            No incident data available for the selected month.
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Get only the first 6 incidents for display, ensuring incidents array exists
+  const incidents = data.incidents ? data.incidents.slice(0, 6) : [];
+
+  if (incidents.length === 0) {
+    return (
+      <Card className="bg-card border-border">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg font-medium">Recent Incidents</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="p-4 text-center text-muted-foreground">
+            No incidents found for the selected month.
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="bg-card border-border">

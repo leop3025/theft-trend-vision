@@ -10,10 +10,32 @@ type PredictionCardProps = {
 };
 
 export const PredictionCard: React.FC<PredictionCardProps> = ({ selectedMonth1 }) => {
-  const currentData = monthlyData[selectedMonth1];
+  // Use a default month if the selected month data is not available
+  const currentData = monthlyData[selectedMonth1] || monthlyData["April"];
+  
+  // Generate prediction based on the current month or default to April
   const prediction = generatePrediction(selectedMonth1);
   
-  if (!currentData) return null;
+  if (!currentData || !prediction) {
+    console.error(`No data available for month: ${selectedMonth1}`);
+    return (
+      <Card className="bg-card border-border">
+        <CardHeader className="pb-2">
+          <div className="flex justify-between items-center">
+            <CardTitle className="text-lg font-medium">AI Prediction Analysis</CardTitle>
+            <Badge variant="outline" className="bg-primary-purple/10 text-primary-purple border-primary-purple">
+              ML Powered
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="p-4 text-center text-muted-foreground">
+            No prediction data available for the selected month.
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   const highRiskDay = getDayTrend(prediction);
   const highRiskTime = getTimeTrend(prediction);
